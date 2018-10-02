@@ -62,9 +62,14 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			} else {
+				bodyBytes, err2 := ioutil.ReadAll(resp.Body)
+				if err2 != nil{
+					log.Fatal(err2)
+				}
 				io.Copy(ioutil.Discard, resp.Body)
 				resp.Body.Close()
 				log.Println(r.Method, r.URL, len(r.PostData.Text), resp.Status, dur)
+				log.Println(string(bodyBytes))
 			}
 		}
 
